@@ -28,7 +28,7 @@ const CAT_STYLE = {
 
 function getPriority(deadline) {
   if (!deadline) return null
-  const diff = (new Date(deadline) - new Date()) / (1000 * 60 * 60 * 24)
+  const diff = (new Date(deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
   if (diff <= 1) return { label: 'Urgent', style: 'bg-red-100 text-red-500' }
   if (diff <= 3) return { label: 'Medium', style: 'bg-yellow-100 text-yellow-600' }
   return { label: 'Low', style: 'bg-green-100 text-green-600' }
