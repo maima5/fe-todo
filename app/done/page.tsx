@@ -11,7 +11,7 @@ const CAT_STYLE = {
   Health:   { style: 'bg-green-100 text-green-700',   icon: Activity },
 };
 
-function formatCompletedAt(dateStr) {
+function formatCompletedAt(dateStr : string | null) {
   if (!dateStr) return null
   return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
 }
@@ -19,7 +19,7 @@ function formatCompletedAt(dateStr) {
 export default function DonePage() {
   const [allTodos, setAllTodos] = useState([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
 
   const fetchAll = async () => {
     try {
@@ -28,7 +28,7 @@ export default function DonePage() {
       const data = await getTodos()
       setAllTodos(data)
     } catch (err) {
-      setError(err.message)
+      setError((err as Error).message)
     } finally {
       setLoading(false)
     }
@@ -37,7 +37,7 @@ export default function DonePage() {
   useEffect(() => { fetchAll() }, [])
 
   const handleDelete = async (id) => {
-    try { await deleteTodo(id); fetchAll() } catch (err) { alert(err.message) }
+    try { await deleteTodo(id); fetchAll() } catch (err) { alert((err as Error).message) }
   }
 
   const doneTodos = allTodos.filter(t => t.done)

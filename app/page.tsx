@@ -53,7 +53,7 @@ export default function Home() {
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('All')
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
 
   const fetchTodos = async () => {
     try {
@@ -65,11 +65,11 @@ export default function Home() {
         if (!a.deadline && !b.deadline) return 0
         if (!a.deadline) return 1
         if (!b.deadline) return -1
-        return new Date(a.deadline) - new Date(b.deadline)
+        return new Date(a.deadline).getTime() - new Date(b.deadline).getTime()
       })
       setAllTodos(sorted)
     } catch (err) {
-      setError(err.message)
+      setError((err as Error).message)
     } finally {
       setLoading(false)
     }
