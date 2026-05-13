@@ -18,7 +18,7 @@ export default function AddPage() {
   const [category, setCategory] = useState('Personal')
   const [deadline, setDeadline] = useState('')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async () => {
     if (!text.trim()) { setError('Judul tidak boleh kosong!'); return; }
@@ -28,7 +28,7 @@ export default function AddPage() {
       await addTodo({ text, category, deadline })
       router.push('/')
     } catch (err) {
-      setError(err.message)
+      setError((err as Error).message)
     } finally {
       setLoading(false)
     }
