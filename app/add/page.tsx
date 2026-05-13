@@ -21,7 +21,7 @@ export default function AddPage() {
   const [error, setError] = useState(null)
 
   const handleSubmit = async () => {
-    if (!text.trim()) return setError('Judul tidak boleh kosong!')
+    if (!text.trim()) { setError('Judul tidak boleh kosong!'); return; }
     try {
       setLoading(true)
       setError(null)
